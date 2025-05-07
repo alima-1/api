@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "vendor",
     "settlement",
     "returns",
-    "fulfilment"
+    "fulfilment",
+    "product",
 ]
 
 MIDDLEWARE = [
