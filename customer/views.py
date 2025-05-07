@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Customer
-from .serializer import CustomerSerializer
+from .serializers import CustomerSerializer
 
 class CustomerCollectionView(APIView):
     def get(self, request):

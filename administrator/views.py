@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Administrator
-from .serializer import AdministratorSerializer
+from .serializers import AdministratorSerializer
 
 class AdministratorCollectionView(APIView):
     def get(self, request):
