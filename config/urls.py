@@ -26,5 +26,5 @@ urlpatterns = [
     path('fulfilments/', include('fulfilment.urls')),
     path('orders/', include('order.urls')),
     path('products/', include('product.urls')),
-
+    path('returns/', include('returns.urls')),
 ]
