@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import ospostgresql://alima:BjJzuXRq9U1AhgoLOzIbu6FuH5nxqLfw@dpg-d0du0rp5pdvs73aingn0-a/api_tn3t
+import dj_database_url 
+from urllib.parse import urlparse
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -102,6 +105,24 @@ DATABASES = {
     }
 }
 
+if os.getenv('DATABASE_URL'):
+    url = urlparse(os.getenv('DATABASE_URL'))  # Parse the DATABASE_URL
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': url.path[1:],  # Remove the leading slash from the DB name
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port,
+    }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://postgres:postgres@localhost:5432/ApiDB',
+        conn_max_age=600
+    )
+}
 
 
 
