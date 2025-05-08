@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
-import ospostgresql://alima:BjJzuXRq9U1AhgoLOzIbu6FuH5nxqLfw@dpg-d0du0rp5pdvs73aingn0-a/api_tn3t
+import os
 import dj_database_url 
 from urllib.parse import urlparse
 
