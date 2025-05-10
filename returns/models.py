@@ -1,6 +1,7 @@
 from django.db import models
 from order.models import OrderItem
 
+
 class Return(models.Model):
     order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
     reason = models.TextField()

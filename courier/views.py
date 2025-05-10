@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import Courier
 from .serializers import CourierSerializer
 
+
 class CourierCollectionView(APIView):
     def get(self, request):
         couriers = Courier.objects.all()
@@ -17,6 +18,7 @@ class CourierCollectionView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class CourierItemView(APIView):
     def get_object(self, pk):
         try:
@@ -27,14 +29,14 @@ class CourierItemView(APIView):
     def get(self, request, pk):
         courier = self.get_object(pk)
         if not courier:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CourierSerializer(courier)
         return Response(serializer.data)
 
     def put(self, request, pk):
         courier = self.get_object(pk)
         if not courier:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CourierSerializer(courier, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -44,6 +46,6 @@ class CourierItemView(APIView):
     def delete(self, request, pk):
         courier = self.get_object(pk)
         if not courier:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         courier.delete()
-        return Response({'message': 'Deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "Deleted"}, status=status.HTTP_204_NO_CONTENT)

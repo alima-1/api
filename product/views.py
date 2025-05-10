@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import Product
 from .serializers import ProductSerializer
 
+
 class ProductCollectionView(APIView):
     def get(self, request):
         products = Product.objects.all()
@@ -17,6 +18,7 @@ class ProductCollectionView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ProductItemView(APIView):
     def get_object(self, pk):
         try:
@@ -27,14 +29,14 @@ class ProductItemView(APIView):
     def get(self, request, pk):
         product = self.get_object(pk)
         if not product:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = ProductSerializer(product)
         return Response(serializer.data)
 
     def put(self, request, pk):
         product = self.get_object(pk)
         if not product:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = ProductSerializer(product, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -44,6 +46,6 @@ class ProductItemView(APIView):
     def delete(self, request, pk):
         product = self.get_object(pk)
         if not product:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         product.delete()
-        return Response({'message': 'Deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "Deleted"}, status=status.HTTP_204_NO_CONTENT)

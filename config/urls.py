@@ -19,14 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("", admin.site.urls),
     path("administrators/", include("administrator.urls")),
-    path('couriers/', include('courier.urls')),
-    path('customers/', include('customer.urls')),
-    path('fulfilments/', include('fulfilment.urls')),
-    path('orders/', include('order.urls')),
-    path('products/', include('product.urls')),
-    path('returns/', include('returns.urls')),
-    path('settlement/', include('settlement.urls')),
-    path('vendor/', include('vendor.urls')),
+    path("couriers/", include("courier.urls")),
+    path("customers/", include("customer.urls")),
+    path("fulfilments/", include("fulfilment.urls")),
+    path("orders/", include("order.urls")),
+    path("products/", include("product.urls")),
+    path("returns/", include("returns.urls")),
+    path("settlement/", include("settlement.urls")),
+    path("vendor/", include("vendor.urls")),
 ]

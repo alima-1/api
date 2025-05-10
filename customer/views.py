@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import Customer
 from .serializers import CustomerSerializer
 
+
 class CustomerCollectionView(APIView):
     def get(self, request):
         customers = Customer.objects.all()
@@ -17,6 +18,7 @@ class CustomerCollectionView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class CustomerItemView(APIView):
     def get_object(self, pk):
         try:
@@ -27,14 +29,14 @@ class CustomerItemView(APIView):
     def get(self, request, pk):
         customer = self.get_object(pk)
         if not customer:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CustomerSerializer(customer)
         return Response(serializer.data)
 
     def put(self, request, pk):
         customer = self.get_object(pk)
         if not customer:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CustomerSerializer(customer, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -44,6 +46,6 @@ class CustomerItemView(APIView):
     def delete(self, request, pk):
         customer = self.get_object(pk)
         if not customer:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         customer.delete()
-        return Response({'message': 'Deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "Deleted"}, status=status.HTTP_204_NO_CONTENT)

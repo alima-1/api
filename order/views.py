@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import Order, OrderItem
 from .serializers import OrderSerializer, OrderItemSerializer
 
+
 class OrderCollectionView(APIView):
     def get(self, request):
         orders = Order.objects.all()
@@ -28,14 +29,14 @@ class OrderItemView(APIView):
     def get(self, request, pk):
         order = self.get_object(pk)
         if not order:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = OrderSerializer(order)
         return Response(serializer.data)
 
     def put(self, request, pk):
         order = self.get_object(pk)
         if not order:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = OrderSerializer(order, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -45,11 +46,12 @@ class OrderItemView(APIView):
     def delete(self, request, pk):
         order = self.get_object(pk)
         if not order:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         order.delete()
-        return Response({'message': 'Deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "Deleted"}, status=status.HTTP_204_NO_CONTENT)
 
-#order item views
+
+# order item views
 class OrderItemCollectionView(APIView):
     def get(self, request):
         items = OrderItem.objects.all()
@@ -63,6 +65,7 @@ class OrderItemCollectionView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class OrderItemDetailView(APIView):
     def get_object(self, pk):
         try:
@@ -73,14 +76,14 @@ class OrderItemDetailView(APIView):
     def get(self, request, pk):
         item = self.get_object(pk)
         if not item:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = OrderItemSerializer(item)
         return Response(serializer.data)
 
     def put(self, request, pk):
         item = self.get_object(pk)
         if not item:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = OrderItemSerializer(item, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -90,6 +93,6 @@ class OrderItemDetailView(APIView):
     def delete(self, request, pk):
         item = self.get_object(pk)
         if not item:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         item.delete()
-        return Response({'message': 'Deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "Deleted"}, status=status.HTTP_204_NO_CONTENT)

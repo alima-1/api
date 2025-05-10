@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import Delivery
 from .serializers import DeliverySerializer
 
+
 class DeliveryCollectionView(APIView):
     def get(self, request):
         deliveries = Delivery.objects.all()
@@ -17,6 +18,7 @@ class DeliveryCollectionView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class DeliveryItemView(APIView):
     def get_object(self, pk):
         try:
@@ -27,14 +29,14 @@ class DeliveryItemView(APIView):
     def get(self, request, pk):
         delivery = self.get_object(pk)
         if not delivery:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = DeliverySerializer(delivery)
         return Response(serializer.data)
 
     def put(self, request, pk):
         delivery = self.get_object(pk)
         if not delivery:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = DeliverySerializer(delivery, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -44,6 +46,6 @@ class DeliveryItemView(APIView):
     def delete(self, request, pk):
         delivery = self.get_object(pk)
         if not delivery:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
         delivery.delete()
-        return Response({'message': 'Deleted'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "Deleted"}, status=status.HTTP_204_NO_CONTENT)
